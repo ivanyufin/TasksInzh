@@ -1,0 +1,3 @@
+﻿  Инжинириум2.cpp
+C:\Users\Admin\source\repos\Инжинириум2\Инжинириум2\Инжинириум2.cpp(92,13): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Инжинириум2.vcxproj -> C:\Users\Admin\source\repos\Инжинириум2\Debug\Инжинириум2.exe
