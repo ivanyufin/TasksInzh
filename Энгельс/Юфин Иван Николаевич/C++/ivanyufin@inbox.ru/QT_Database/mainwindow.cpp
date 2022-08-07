@@ -10,15 +10,18 @@ MainWindow::MainWindow(QWidget *parent)
     db.setDatabaseName("./testDB.db");
     if(db.open())
     {
-        qDebug("open");
+        ui->label->setText("Успешно подключено к базе данных");
     }
     else
     {
-        qDebug("no open");
+        ui->label->setText("Ошибка подключения к базе данных");
     }
 
     query = new QSqlQuery(db);
-    query->exec("CREATE TABLE TelephoneBook(Фамилия TEXT, Имя TEXT, Отчество TEXT, Телефон BIGINT);");
+    if(db.tables().indexOf("TelephoneBook") == -1)
+    {
+        query->exec("CREATE TABLE TelephoneBook(Фамилия TEXT, Имя TEXT, Отчество TEXT, Телефон BIGINT);");
+    }
 
     model = new QSqlTableModel(this, db);
     Refresh();

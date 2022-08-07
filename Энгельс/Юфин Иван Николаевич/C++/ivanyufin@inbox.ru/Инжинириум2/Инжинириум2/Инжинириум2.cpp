@@ -9,6 +9,14 @@ private:
 	int direction;
 	int** mtrx;
 	int i = 0, j = 0, k = 1, z = 0;
+	/// <summary>
+	/// Число, начиная от которого будут генерироваться случайные числа
+	/// </summary>
+	int left_border;
+	/// <summary>
+	/// Число, до которого будут генерироваться случайные числа
+	/// </summary>
+	int right_border;
 public:
 	void Create()
 	{
@@ -87,21 +95,39 @@ public:
 		}
 	}
 
+	void Delete_Matrix()
+	{
+		for (int i = 0; i < n; i++)
+			delete[] mtrx[i];
+		delete[] mtrx;
+	}
+
 	Matrix()
 	{
-		srand(time(0));
-		n = 3 + rand() % (10 - 3 + 1);
+		left_border = 3;
+		right_border = 10;
+		//Учитывая, что left_border не просто указывает от какого числа нужно
+		//создавать случайные числа, а смещает диапазон создания от 0, то
+		//чтобы сделать генерацию чисел от 3 до 10, нужно из 10 вычесть 3
+		//и прибавить 1(чтобы 10 включалось в диапазон)
+		n = left_border + rand() % (right_border - left_border + 1);
+		//Создается случайное число от 0 до 2(0-1) и от этого определяется направление
 		direction = rand() % 2;
 		Create();
+	}
+	
+	~Matrix()
+	{
+		Delete_Matrix();
 	}
 };
 
 int main()
 {
-	Matrix m;
-	m.Filling();
-	m.Display();
-
+	srand(time(0));
+	Matrix* m = new Matrix();
+	m->Filling();
+	m->Display();
+	m->~Matrix();
 	return 0;
 }
-
